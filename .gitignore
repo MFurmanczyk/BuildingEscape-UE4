@@ -14,3 +14,9 @@
 ##########################
 
 *.VC.db
+*.suo
+*.VC.opendb
+*.sln
+
+##########################
+/BuildingEscape/.vs/BuildingEscape/v15/ipch/AutoPCH/39afb818b32b7b2c
