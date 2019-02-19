@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "GameFramework/Actor.h"
+#include "Public/DrawDebugHelpers.h"
+#include "Public/CollisionQueryParams.h"
 #include "Grabber.generated.h"
 
 #define OUT
@@ -29,5 +31,7 @@ public:
 private:
 	FVector PlayerViewPointLocation;
 	FRotator PlayerViewPointRotation;
+	float Reach = 80.f;
+	AActor* ActorHit = nullptr;
 		
 };
