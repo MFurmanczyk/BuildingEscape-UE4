@@ -26,24 +26,28 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	void SetupInputComponent();
+
+	void FindPhysicsHandleComponent();
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-private:
-	FVector PlayerViewPointLocation;
-	FRotator PlayerViewPointRotation;
-	AActor* ActorHit = nullptr;
-		
-	float Reach = 80.f;
-
-	UPhysicsHandleComponent* PhysicsHandle = nullptr;
-
-	UInputComponent* InputComponent = nullptr;
+	const FHitResult GetFirstPhysiscBodyInReach();
 
 	//Ray-cast and grab what's in reach
 	void Grab();
 
 	//Release holding object
 	void Release();
+
+private:
+		
+	float Reach = 100.f;
+
+	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+
+	UInputComponent* InputComponent = nullptr;
+
 };
