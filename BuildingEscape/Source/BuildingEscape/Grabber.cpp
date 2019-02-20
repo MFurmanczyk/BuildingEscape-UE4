@@ -19,9 +19,43 @@ void UGrabber::BeginPlay()
 	Super::BeginPlay();
 
 	UE_LOG(LogTemp, Warning, TEXT("Grabber reporting for duty"));
-	
+
+	///Look for attached physisc handle
+	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
+	if (PhysicsHandle)
+	{
+		//Physisc handle found
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("%s missing physics handle component"), *GetOwner()->GetName())
+	}
+
+	///Look for attached input component
+	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
+	if (InputComponent)
+	{
+		//Input component found
+		//Bind the input axis
+		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
+		InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::Release);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("%s missing input component"), *GetOwner()->GetName())
+	}
 }
 
+
+void UGrabber::Grab()
+{
+
+}
+
+void UGrabber::Release()
+{
+
+}
 
 // Called every frame
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -45,6 +79,8 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 		10.f
 		);
 
+
+	//Set up collision params
 	FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());
 	///Ray-cast out to reach distance
 	FHitResult LineHit;
@@ -63,4 +99,6 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	}
 
 }
+
+
 

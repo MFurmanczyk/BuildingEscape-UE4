@@ -7,6 +7,8 @@
 #include "GameFramework/Actor.h"
 #include "Public/DrawDebugHelpers.h"
 #include "Public/CollisionQueryParams.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
+#include "Components/InputComponent.h"
 #include "Grabber.generated.h"
 
 #define OUT
@@ -31,7 +33,17 @@ public:
 private:
 	FVector PlayerViewPointLocation;
 	FRotator PlayerViewPointRotation;
-	float Reach = 80.f;
 	AActor* ActorHit = nullptr;
 		
+	float Reach = 80.f;
+
+	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+
+	UInputComponent* InputComponent = nullptr;
+
+	//Ray-cast and grab what's in reach
+	void Grab();
+
+	//Release holding object
+	void Release();
 };
