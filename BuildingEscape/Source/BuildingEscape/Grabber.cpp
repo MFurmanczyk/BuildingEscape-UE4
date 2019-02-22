@@ -85,7 +85,7 @@ const FHitResult UGrabber::GetFirstPhysiscBodyInReach()
 	///Ray-cast out to reach distance
 	FHitResult HitResult;
 	GetWorld()->LineTraceSingleByObjectType(
-		OUT LineHit,
+		OUT HitResult,
 		GetReachLineStart(),
 		GetReachLineEnd(),
 		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
