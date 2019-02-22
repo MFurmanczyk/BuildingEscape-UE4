@@ -22,7 +22,7 @@ void UOpenDoor::BeginPlay()
 
 void UOpenDoor::OpenDoor()
 {
-	Owner->SetActorRotation(FRotator(0.f, OpenAngle, 0.f));
+	OnOpenRequest.Broadcast();
 }
 
 void UOpenDoor::CloseDoor()
@@ -35,6 +35,7 @@ float UOpenDoor::GetTotalMassOfActorsOnPlate()
 	float TotalMass = 0.f;
 	TArray <AActor*> OverlappingActors;
 	//Find all overlaping actors
+	if (!PressurePlate) { return TotalMass; }
 	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
 	//Iterate trough them adding their masses
 	for (const auto& Actor : OverlappingActors)
@@ -50,7 +51,7 @@ float UOpenDoor::GetTotalMassOfActorsOnPlate()
 void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	
+	if (!PressurePlate) { return; }
 	if(GetTotalMassOfActorsOnPlate() > TriggerMass)
 	{
 		OpenDoor();
